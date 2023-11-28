@@ -1,4 +1,4 @@
-package com.henio.cdc.entity;
+package com.henio.cdc.novoautor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -18,7 +18,6 @@ public class Autor {
     private String nome;
     @NotBlank
     @Email
-    @Column(unique = true)
     private String email;
     @NotBlank
     @Size(max=400)

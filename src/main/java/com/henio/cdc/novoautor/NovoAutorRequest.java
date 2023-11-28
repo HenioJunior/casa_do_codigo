@@ -1,12 +1,11 @@
-package com.henio.cdc.dto;
+package com.henio.cdc.novoautor;
 
-import com.henio.cdc.entity.Autor;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.util.Assert;
 
-public class AutorRequest {
+public class NovoAutorRequest {
     @NotBlank
     private String nome;
     @NotBlank
@@ -16,8 +15,8 @@ public class AutorRequest {
     @Size(max = 400)
     private String descricao;
 
-    public AutorRequest(@NotBlank String nome, @NotBlank @Email String email,
-                        @NotBlank @Size(max = 400) String descricao) {
+    public NovoAutorRequest(@NotBlank String nome, @NotBlank @Email String email,
+                            @NotBlank @Size(max = 400) String descricao) {
         Assert.hasLength(nome, "O nome é obrigatório");
         this.nome = nome;
         this.email = email;
@@ -26,5 +25,9 @@ public class AutorRequest {
 
     public Autor toModel() {
         return new Autor(this.nome, this.email, this.descricao);
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
