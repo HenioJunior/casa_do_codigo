@@ -1,4 +1,4 @@
-package com.henio.cdc.novoautor;
+package com.henio.casadocodigo.novoautor;
 
 import org.springframework.data.repository.CrudRepository;
 

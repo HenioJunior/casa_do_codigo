@@ -1,4 +1,4 @@
-package com.henio.cdc.novacategoria;
+package com.henio.casadocodigo.novacategoria;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
