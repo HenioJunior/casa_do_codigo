@@ -1,13 +1,14 @@
 package com.henio.casadocodigo.novoautor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AutorResponse {
     private Long id;
     private String nome;
     private String email;
     private String descricao;
-    private LocalDateTime instanteCriacao;
+    private String instanteCriacao;
 
 
     public AutorResponse(Autor autor) {
@@ -15,7 +16,7 @@ public class AutorResponse {
         this.nome = autor.getNome();
         this.email = autor.getEmail();
         this.descricao = autor.getDescricao();
-        this.instanteCriacao = autor.getInstanteCriacao();
+        this.instanteCriacao = autor.getInstanteCriacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
     public Long getId() {
@@ -34,7 +35,7 @@ public class AutorResponse {
         return descricao;
     }
 
-    public LocalDateTime getInstanteCriacao() {
+    public String getInstanteCriacao() {
         return instanteCriacao;
     }
 }

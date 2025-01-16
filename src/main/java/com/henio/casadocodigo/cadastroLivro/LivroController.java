@@ -4,21 +4,28 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("livros")
-public class LivrosController {
+public class LivroController {
 
     @PersistenceContext
     EntityManager manager;
+
+    @GetMapping
+    public List<ListarLivrosResponse> listarLivros(){
+        List<Object[]> list = manager.createQuery("SELECT a.id, a.titulo FROM Livro a", Object[].class).getResultList();
+        return list.stream().map(ListarLivrosResponse::new).collect(Collectors.toList());
+    }
 
     @PostMapping
     @Transactional
