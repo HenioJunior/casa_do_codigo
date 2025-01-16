@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueValue {
 
-    String message() default "{javax.validation.constraints.UniqueValue.message}";
+    String message() default "O atributo já foi cadastrado";
 
     Class<?>[] groups() default {};
 

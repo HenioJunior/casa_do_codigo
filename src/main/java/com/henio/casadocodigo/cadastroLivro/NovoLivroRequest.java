@@ -1,7 +1,7 @@
-package com.henio.casadocodigo.cadastrolivro;
+package com.henio.casadocodigo.cadastroLivro;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.henio.casadocodigo.cadastrocategoria.Categoria;
+import com.henio.casadocodigo.cadastroCategoria.Categoria;
 import com.henio.casadocodigo.compartilhado.UniqueValue;
 import com.henio.casadocodigo.novoautor.Autor;
 import jakarta.persistence.EntityManager;

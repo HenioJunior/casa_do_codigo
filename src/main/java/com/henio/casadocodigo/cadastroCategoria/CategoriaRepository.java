@@ -1,4 +1,4 @@
-package com.henio.casadocodigo.cadastrocategoria;
+package com.henio.casadocodigo.cadastroCategoria;
 
 import org.springframework.data.repository.CrudRepository;
 

@@ -5,8 +5,12 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/autores")
@@ -25,10 +29,12 @@ public class AutorController {
 
     @PostMapping
     @Transactional
-    public String criar(@RequestBody @Valid NovoAutorRequest request) {
+    public ResponseEntity<AutorResponse> criar(@RequestBody @Valid NovoAutorRequest request) {
         Autor autor = request.toModel();
         manager.persist(autor);
-        return autor.toString();
+        AutorResponse response = new AutorResponse(autor);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(autor.getId()).toUri();
+        return ResponseEntity.created(uri).body(response);
     }
 }
 

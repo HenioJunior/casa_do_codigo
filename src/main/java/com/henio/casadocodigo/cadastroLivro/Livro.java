@@ -1,6 +1,6 @@
-package com.henio.casadocodigo.cadastrolivro;
+package com.henio.casadocodigo.cadastroLivro;
 
-import com.henio.casadocodigo.cadastrocategoria.Categoria;
+import com.henio.casadocodigo.cadastroCategoria.Categoria;
 import com.henio.casadocodigo.novoautor.Autor;
 import jakarta.persistence.*;
 
@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "tb_livro")
 public class Livro {
 
     @Id

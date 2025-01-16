@@ -1,6 +1,6 @@
 package com.henio.casadocodigo.novoautor;
 
-import com.henio.casadocodigo.cadastrolivro.Livro;
+import com.henio.casadocodigo.cadastroLivro.Livro;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_autor")
 public class Autor {
 
     @Id
@@ -26,8 +25,6 @@ public class Autor {
     @Size(max=400)
     private String descricao;
     private LocalDateTime instanteCriacao = LocalDateTime.now();
-    @OneToMany(mappedBy = "autor")
-    private List<Livro> livros = new ArrayList<>();
 
     public Autor(){}
 
@@ -57,18 +54,5 @@ public class Autor {
         return instanteCriacao;
     }
 
-    public List<Livro> getLivros() {
-        return livros;
-    }
 
-    @Override
-    public String toString() {
-        return "Autor{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", instanteCriacao=" + instanteCriacao +
-                '}';
-    }
 }
