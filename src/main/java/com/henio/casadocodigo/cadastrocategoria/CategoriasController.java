@@ -1,4 +1,4 @@
-package com.henio.casadocodigo.novacategoria;
+package com.henio.casadocodigo.cadastrocategoria;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/categorias")
-public class NovaCategoriaController {
+public class CategoriasController {
 
     @PersistenceContext
     private EntityManager manager;

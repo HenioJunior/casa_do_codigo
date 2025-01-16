@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/autores")
-public class NovoAutorController {
+public class AutorController {
 
     @PersistenceContext
     private EntityManager manager;
