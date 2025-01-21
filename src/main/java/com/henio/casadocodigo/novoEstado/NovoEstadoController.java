@@ -1,5 +1,6 @@
-package com.henio.casadocodigo.novoPais;
+package com.henio.casadocodigo.novoEstado;
 
+import com.henio.casadocodigo.novoPais.PaisResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -14,19 +15,20 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("paises")
-public class PaisController {
+@RequestMapping("estados")
+public class NovoEstadoController {
 
     @PersistenceContext
     private EntityManager manager;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<PaisResponse> novoPais(@Valid @RequestBody NovoPaisRequest request) {
-        Pais pais = request.toModel();
-        manager.persist(pais);
-        PaisResponse response = new PaisResponse(pais.getId(), pais.getNome());
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pais.getId()).toUri();
+    public ResponseEntity<EstadoResponse> cria(@Valid @RequestBody NovoEstadoRequest request) {
+        Estado estado = request.toModel(manager);
+        manager.persist(estado);
+        EstadoResponse response = new EstadoResponse(estado.getId(), estado.getNome(),
+                new PaisResponse(estado.getPais().getId(), estado.getPais().getNome()));
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(estado.getId()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
 }
