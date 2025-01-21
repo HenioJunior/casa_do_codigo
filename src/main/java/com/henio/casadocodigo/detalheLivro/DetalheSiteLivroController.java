@@ -1,6 +1,6 @@
 package com.henio.casadocodigo.detalheLivro;
 
-import com.henio.casadocodigo.cadastroLivro.Livro;
+import com.henio.casadocodigo.novoLivro.Livro;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.http.ResponseEntity;

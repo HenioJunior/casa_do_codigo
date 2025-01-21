@@ -1,11 +1,10 @@
 package com.henio.casadocodigo.detalheLivro;
 
-import com.henio.casadocodigo.cadastroCategoria.CategoriaResponse;
-import com.henio.casadocodigo.cadastroLivro.Livro;
-import com.henio.casadocodigo.novoautor.AutorResponse;
+import com.henio.casadocodigo.novaCategoria.CategoriaResponse;
+import com.henio.casadocodigo.novoLivro.Livro;
+import com.henio.casadocodigo.novoAutor.AutorResponse;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DetalheSiteLivroResponse {

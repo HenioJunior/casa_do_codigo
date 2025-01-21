@@ -1,4 +1,4 @@
-package com.henio.casadocodigo.novoautor;
+package com.henio.casadocodigo.novoAutor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

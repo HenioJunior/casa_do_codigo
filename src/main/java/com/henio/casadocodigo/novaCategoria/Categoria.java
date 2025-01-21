@@ -1,11 +1,7 @@
-package com.henio.casadocodigo.cadastroCategoria;
+package com.henio.casadocodigo.novaCategoria;
 
-import com.henio.casadocodigo.cadastroLivro.Livro;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Categoria {

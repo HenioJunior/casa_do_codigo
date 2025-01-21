@@ -1,4 +1,4 @@
-package com.henio.casadocodigo.novoautor;
+package com.henio.casadocodigo.novoAutor;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

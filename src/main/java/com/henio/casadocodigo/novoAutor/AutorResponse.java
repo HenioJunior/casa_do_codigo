@@ -1,6 +1,5 @@
-package com.henio.casadocodigo.novoautor;
+package com.henio.casadocodigo.novoAutor;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AutorResponse {

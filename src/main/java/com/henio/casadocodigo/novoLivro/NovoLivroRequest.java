@@ -1,9 +1,9 @@
-package com.henio.casadocodigo.cadastroLivro;
+package com.henio.casadocodigo.novoLivro;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.henio.casadocodigo.cadastroCategoria.Categoria;
+import com.henio.casadocodigo.novaCategoria.Categoria;
 import com.henio.casadocodigo.compartilhado.UniqueValue;
-import com.henio.casadocodigo.novoautor.Autor;
+import com.henio.casadocodigo.novoAutor.Autor;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.*;
 import org.springframework.util.Assert;

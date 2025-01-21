@@ -1,4 +1,4 @@
-package com.henio.casadocodigo.cadastroCategoria;
+package com.henio.casadocodigo.novaCategoria;
 
 import com.henio.casadocodigo.compartilhado.UniqueValue;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.henio.casadocodigo.cadastroCategoria;
+package com.henio.casadocodigo.novaCategoria;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
