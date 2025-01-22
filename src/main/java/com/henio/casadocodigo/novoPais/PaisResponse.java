@@ -4,9 +4,9 @@ public class PaisResponse {
     private Long id;
     private String nome;
 
-    public PaisResponse(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    public PaisResponse(Pais pais) {
+        this.id = pais.getId();
+        this.nome = pais.getNome();
     }
 
     public Long getId() {

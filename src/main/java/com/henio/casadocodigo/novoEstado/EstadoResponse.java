@@ -1,17 +1,17 @@
 package com.henio.casadocodigo.novoEstado;
 
-import com.henio.casadocodigo.novoPais.PaisResponse;
+import com.henio.casadocodigo.novoPais.Pais;
 
 public class EstadoResponse {
 
     private Long id;
     private String nome;
-    private PaisResponse pais;
+    private Pais pais;
 
-    public EstadoResponse(Long id, String nome, PaisResponse pais) {
-        this.id = id;
-        this.nome = nome;
-        this.pais = pais;
+    public EstadoResponse(Estado estado) {
+        this.id = estado.getId();
+        this.nome = estado.getNome();
+        this.pais = estado.getPais();
     }
 
     public Long getId() {
@@ -22,7 +22,7 @@ public class EstadoResponse {
         return nome;
     }
 
-    public PaisResponse getPais() {
+    public Pais getPais() {
         return pais;
     }
 }

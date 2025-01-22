@@ -25,7 +25,7 @@ public class PaisController {
     public ResponseEntity<PaisResponse> novoPais(@Valid @RequestBody NovoPaisRequest request) {
         Pais pais = request.toModel();
         manager.persist(pais);
-        PaisResponse response = new PaisResponse(pais.getId(), pais.getNome());
+        PaisResponse response = new PaisResponse(pais);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pais.getId()).toUri();
         return ResponseEntity.created(uri).body(response);
     }

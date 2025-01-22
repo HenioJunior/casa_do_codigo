@@ -3,6 +3,7 @@ package com.henio.casadocodigo.fechamentoCompra;
 import com.henio.casadocodigo.compartilhado.ExistsId;
 import com.henio.casadocodigo.novoEstado.Estado;
 import com.henio.casadocodigo.novoPais.Pais;
+import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
@@ -34,6 +35,23 @@ public class NovaCompraRequest {
     private String telefone;
     @NotBlank
     private String cep;
+
+    public NovaCompraRequest(String email, String nome, String sobrenome, String documento, String endereco,
+                             String complemento, String cidade, Long idPais, Long idEstado, String telefone,
+                             String cep) {
+        this.email = email;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.documento = documento;
+        this.endereco = endereco;
+        this.complemento = complemento;
+        this.cidade = cidade;
+        this.idPais = idPais;
+        this.idEstado = idEstado;
+        this.telefone = telefone;
+        this.cep = cep;
+
+    }
 
     public String getEmail() {
         return email;
@@ -79,21 +97,13 @@ public class NovaCompraRequest {
         return cep;
     }
 
-    @Override
-    public String toString() {
-        return "NovaCompraRequest{" +
-                "email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", documento='" + documento + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", idPais=" + idPais +
-                ", idEstado=" + idEstado +
-                ", telefone='" + telefone + '\'' +
-                ", cep='" + cep + '\'' +
-                '}';
+    public Compra toModel(EntityManager manager) {
+        Pais pais = manager.find(Pais.class, idPais);
+        Compra compra = new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, telefone, cep);
+        if(idEstado != null) {
+            compra.setEstado(manager.find(Estado.class, idEstado));
+        }
+        return compra;
     }
 
     public boolean documentoValido() {
@@ -108,5 +118,9 @@ public class NovaCompraRequest {
 
         return cpfValidator.isValid(documento, null)
                 || cnpjValidator.isValid(documento, null);
+    }
+
+    public boolean temEstado() {
+       return idEstado != null;
     }
 }

@@ -2,9 +2,6 @@ package com.henio.casadocodigo.novoPais;
 
 import com.henio.casadocodigo.compartilhado.UniqueValue;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.util.Assert;
-
-import java.util.Optional;
 
 public class NovoPaisRequest {
 

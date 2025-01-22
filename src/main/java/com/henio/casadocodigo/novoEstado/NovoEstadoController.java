@@ -26,8 +26,7 @@ public class NovoEstadoController {
     public ResponseEntity<EstadoResponse> cria(@Valid @RequestBody NovoEstadoRequest request) {
         Estado estado = request.toModel(manager);
         manager.persist(estado);
-        EstadoResponse response = new EstadoResponse(estado.getId(), estado.getNome(),
-                new PaisResponse(estado.getPais().getId(), estado.getPais().getNome()));
+        EstadoResponse response = new EstadoResponse(estado);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(estado.getId()).toUri();
         return ResponseEntity.created(uri).body(response);
     }
