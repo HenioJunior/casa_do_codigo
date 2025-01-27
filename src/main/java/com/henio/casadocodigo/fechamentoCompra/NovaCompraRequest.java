@@ -10,6 +10,8 @@ import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
 
+import java.util.function.Function;
+
 public class NovaCompraRequest {
 
     @NotBlank
@@ -35,10 +37,12 @@ public class NovaCompraRequest {
     private String telefone;
     @NotBlank
     private String cep;
+    @NotNull
+    private NovoPedidoRequest pedido;
 
     public NovaCompraRequest(String email, String nome, String sobrenome, String documento, String endereco,
                              String complemento, String cidade, Long idPais, Long idEstado, String telefone,
-                             String cep) {
+                             String cep, NovoPedidoRequest pedido) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -50,7 +54,7 @@ public class NovaCompraRequest {
         this.idEstado = idEstado;
         this.telefone = telefone;
         this.cep = cep;
-
+        this.pedido = pedido;
     }
 
     public String getEmail() {
@@ -97,13 +101,20 @@ public class NovaCompraRequest {
         return cep;
     }
 
+    public NovoPedidoRequest getPedido() {
+        return pedido;
+    }
+
     public Compra toModel(EntityManager manager) {
         Pais pais = manager.find(Pais.class, idPais);
-        Compra compra = new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, telefone, cep);
+
+        Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(manager);
+        Compra compra = new Compra(email, nome, sobrenome, documento, endereco, complemento,
+                cidade, pais, telefone, cep, funcaoCriacaoPedido);
         if(idEstado != null) {
             compra.setEstado(manager.find(Estado.class, idEstado));
         }
-        return compra;
+       return compra;
     }
 
     public boolean documentoValido() {

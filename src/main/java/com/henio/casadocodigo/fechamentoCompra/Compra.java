@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.util.Assert;
 
+import java.util.function.Function;
+
 @Entity
 public class Compra {
 
@@ -26,8 +28,10 @@ public class Compra {
     private Estado estado;
     private String telefone;
     private String cep;
+    @OneToOne(mappedBy =  "compra", cascade = CascadeType.PERSIST)
+    private Pedido pedido;
 
-    public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, String telefone, String cep) {
+    public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, String telefone, String cep, Function<Compra, Pedido> funcaoCriacaoPedido) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -38,6 +42,7 @@ public class Compra {
         this.pais = pais;
         this.telefone = telefone;
         this.cep = cep;
+        this.pedido = funcaoCriacaoPedido.apply(this);
     }
 
     @Deprecated
@@ -95,5 +100,23 @@ public class Compra {
         Assert.notNull(pais, "Não pode selecionar um estado quando o país for nulo");
         Assert.isTrue(estado.pertenceAPais(pais), "Este estado não é do país selecionado");
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Compra{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", documento='" + documento + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", pais=" + pais +
+                ", estado=" + estado +
+                ", telefone='" + telefone + '\'' +
+                ", cep='" + cep + '\'' +
+                '}';
     }
 }

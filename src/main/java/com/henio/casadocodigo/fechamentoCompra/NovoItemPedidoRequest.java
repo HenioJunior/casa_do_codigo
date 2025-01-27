@@ -2,10 +2,11 @@ package com.henio.casadocodigo.fechamentoCompra;
 
 import com.henio.casadocodigo.compartilhado.ExistsId;
 import com.henio.casadocodigo.novoLivro.Livro;
+import jakarta.persistence.EntityManager;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public class NovoPedidoItemRequest {
+public class NovoItemPedidoRequest {
 
     @NotNull
     @ExistsId(domainClass = Livro.class, fieldName = "id")
@@ -13,7 +14,7 @@ public class NovoPedidoItemRequest {
     @Positive
     private int quantidade;
 
-    public NovoPedidoItemRequest(Long idLivro, int quantidade) {
+    public NovoItemPedidoRequest(Long idLivro, int quantidade) {
         this.idLivro = idLivro;
         this.quantidade = quantidade;
     }
@@ -32,5 +33,10 @@ public class NovoPedidoItemRequest {
                 "idLivro=" + idLivro +
                 ", quantidade=" + quantidade +
                 '}';
+    }
+
+    public ItemPedido toModel(EntityManager manager) {
+      @NotNull Livro livro = manager.find(Livro.class, idLivro);
+        return new ItemPedido(livro, quantidade);
     }
 }

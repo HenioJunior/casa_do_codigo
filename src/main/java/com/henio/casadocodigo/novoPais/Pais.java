@@ -42,4 +42,12 @@ public class Pais {
     public int hashCode() {
         return Objects.hashCode(nome);
     }
+
+    @Override
+    public String toString() {
+        return "Pais{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
+    }
 }
