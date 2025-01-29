@@ -1,5 +1,6 @@
 package com.henio.casadocodigo.fechamentoCompra;
 
+import com.henio.casadocodigo.cadastroCupom.Cupom;
 import com.henio.casadocodigo.novoEstado.Estado;
 import com.henio.casadocodigo.novoPais.Pais;
 import jakarta.persistence.*;
@@ -30,6 +31,8 @@ public class Compra {
     private String cep;
     @OneToOne(mappedBy =  "compra", cascade = CascadeType.PERSIST)
     private Pedido pedido;
+    @Embedded
+    private CupomAplicado cupomAplicado;
 
     public Compra(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Pais pais, String telefone, String cep, Function<Compra, Pedido> funcaoCriacaoPedido) {
         this.email = email;
@@ -96,27 +99,19 @@ public class Compra {
         return cep;
     }
 
+    public CupomAplicado getCupomAplicado() {
+        return cupomAplicado;
+    }
+
+    public void aplicaCupom(@NotNull @Valid Cupom cupom) {
+        Assert.isTrue(cupom.valido(), "O cupom que está sendo aplicado não é válido");
+        Assert.isNull(cupomAplicado, "Você não pode trocar um cupom de uma compra");
+        this.cupomAplicado = new CupomAplicado(cupom);
+    }
+
     public void setEstado(@NotNull @Valid Estado estado) {
         Assert.notNull(pais, "Não pode selecionar um estado quando o país for nulo");
         Assert.isTrue(estado.pertenceAPais(pais), "Este estado não é do país selecionado");
         this.estado = estado;
-    }
-
-    @Override
-    public String toString() {
-        return "Compra{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", documento='" + documento + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", pais=" + pais +
-                ", estado=" + estado +
-                ", telefone='" + telefone + '\'' +
-                ", cep='" + cep + '\'' +
-                '}';
     }
 }

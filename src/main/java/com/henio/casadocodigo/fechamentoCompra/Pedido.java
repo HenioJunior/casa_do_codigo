@@ -37,11 +37,4 @@ public class Pedido {
         BigDecimal totalPedido = itens.stream().map(ItemPedido::total).reduce(BigDecimal.ZERO, BigDecimal::add);
         return totalPedido.doubleValue() == total.doubleValue();
     }
-
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                ", itens=" + itens +
-                '}';
-    }
 }

@@ -20,6 +20,9 @@ public class FechamentoCompraController {
     private EntityManager manager;
 
     @Autowired
+    private CupomRepository repository;
+
+    @Autowired
     private EstadoPertenceAPaisValidator estadoPertenceAPaisValidator;
 
     @InitBinder
@@ -31,10 +34,13 @@ public class FechamentoCompraController {
     @PostMapping
     @Transactional
     public ResponseEntity<CompraResponse> cria(@Valid @RequestBody NovaCompraRequest request) {
-        Compra compra = request.toModel(manager);
-        manager.persist(compra);
-        CompraResponse response = new CompraResponse(compra);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(compra.getId()).toUri();
+
+        Compra  novaCompra = request.toModel(manager, repository);
+        manager.persist(novaCompra);
+
+        CompraResponse response = new CompraResponse(novaCompra);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(novaCompra.getId()).toUri();
+
         return ResponseEntity.created(uri).body(response);
     }
 }

@@ -48,13 +48,4 @@ public class ItemPedido {
     public int hashCode() {
         return Objects.hashCode(livro);
     }
-
-    @Override
-    public String toString() {
-        return "ItemPedido{" +
-                "livro=" + livro +
-                ", precoDoMomento=" + precoDoMomento +
-                ", quantidade=" + quantidade +
-                '}';
-    }
 }

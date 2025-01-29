@@ -1,5 +1,6 @@
 package com.henio.casadocodigo.fechamentoCompra;
 
+import com.henio.casadocodigo.cadastroCupom.Cupom;
 import com.henio.casadocodigo.compartilhado.ExistsId;
 import com.henio.casadocodigo.novoEstado.Estado;
 import com.henio.casadocodigo.novoPais.Pais;
@@ -9,7 +10,9 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 public class NovaCompraRequest {
@@ -39,9 +42,11 @@ public class NovaCompraRequest {
     private String cep;
     @NotNull
     private NovoPedidoRequest pedido;
+    @ExistsId(domainClass = Cupom.class, fieldName = "codigo")
+    private String codigoCupom;
 
     public NovaCompraRequest(String email, String nome, String sobrenome, String documento, String endereco,
-                             String complemento, String cidade, Long idPais, Long idEstado, String telefone,
+                             String complemento, String cidade, Long idPais, String telefone,
                              String cep, NovoPedidoRequest pedido) {
         this.email = email;
         this.nome = nome;
@@ -51,7 +56,6 @@ public class NovaCompraRequest {
         this.complemento = complemento;
         this.cidade = cidade;
         this.idPais = idPais;
-        this.idEstado = idEstado;
         this.telefone = telefone;
         this.cep = cep;
         this.pedido = pedido;
@@ -105,16 +109,26 @@ public class NovaCompraRequest {
         return pedido;
     }
 
-    public Compra toModel(EntityManager manager) {
+    public Optional<String> getCodigoCupom() {
+        return Optional.ofNullable(codigoCupom);
+    }
+
+    public Compra toModel(EntityManager manager, CupomRepository repository) {
         Pais pais = manager.find(Pais.class, idPais);
 
         Function<Compra, Pedido> funcaoCriacaoPedido = pedido.toModel(manager);
         Compra compra = new Compra(email, nome, sobrenome, documento, endereco, complemento,
                 cidade, pais, telefone, cep, funcaoCriacaoPedido);
+
         if(idEstado != null) {
             compra.setEstado(manager.find(Estado.class, idEstado));
         }
-       return compra;
+
+        if(StringUtils.hasText(codigoCupom)) {
+            Cupom cupom = repository.getByCodigo(codigoCupom);
+            compra.aplicaCupom(cupom);
+        }
+        return compra;
     }
 
     public boolean documentoValido() {
@@ -132,6 +146,6 @@ public class NovaCompraRequest {
     }
 
     public boolean temEstado() {
-       return idEstado != null;
+        return idEstado != null;
     }
 }

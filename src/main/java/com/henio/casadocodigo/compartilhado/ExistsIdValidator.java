@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-public class ExistsIdValidator implements ConstraintValidator<ExistsId, Long> {
+public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object> {
 
     private String domainAttribute;
     private Class<?> klass;
@@ -23,7 +23,7 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Long> {
     }
 
     @Override
-    public boolean isValid(Long value, ConstraintValidatorContext context) {
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
         if(value == null) {
             return true;
         }

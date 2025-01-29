@@ -25,9 +25,7 @@ public class Cupom {
         this.validade = validade;
     }
 
-    public Cupom() {
-
-    }
+    public Cupom() {}
 
     public Long getId() {
         return id;
@@ -47,5 +45,9 @@ public class Cupom {
 
     public void setValidade(LocalDate validade) {
         this.validade = validade;
+    }
+
+    public boolean valido() {
+        return !LocalDate.now().isAfter(validade);
     }
 }

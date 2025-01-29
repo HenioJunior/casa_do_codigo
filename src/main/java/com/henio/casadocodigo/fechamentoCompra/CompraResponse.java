@@ -16,6 +16,7 @@ public class CompraResponse {
     private Estado estado;
     private String telefone;
     private String cep;
+    private final CupomAplicado cupomAplicado;
 
     public CompraResponse(Compra compra) {
         this.id = compra.getId();
@@ -30,6 +31,7 @@ public class CompraResponse {
         this.estado = compra.getEstado();
         this.telefone = compra.getTelefone();
         this.cep = compra.getCep();
+        this.cupomAplicado = compra.getCupomAplicado();
     }
 
     public Long getId() {
@@ -78,5 +80,9 @@ public class CompraResponse {
 
     public String getCep() {
         return cep;
+    }
+
+    public CupomAplicado getCupomAplicado() {
+        return cupomAplicado;
     }
 }
