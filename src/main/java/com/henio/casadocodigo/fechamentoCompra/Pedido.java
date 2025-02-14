@@ -21,7 +21,7 @@ public class Pedido {
     @OneToOne
     private Compra compra;
     @Size(min = 1)
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {
@@ -36,5 +36,9 @@ public class Pedido {
     public boolean totalIgual(@Positive @NotNull BigDecimal total) {
         BigDecimal totalPedido = itens.stream().map(ItemPedido::total).reduce(BigDecimal.ZERO, BigDecimal::add);
         return totalPedido.doubleValue() == total.doubleValue();
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
     }
 }

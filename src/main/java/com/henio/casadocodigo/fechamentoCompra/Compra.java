@@ -102,6 +102,13 @@ public class Compra {
     public CupomAplicado getCupomAplicado() {
         return cupomAplicado;
     }
+    public boolean existeCupom() {
+        return cupomAplicado != null;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
 
     public void aplicaCupom(@NotNull @Valid Cupom cupom) {
         Assert.isTrue(cupom.valido(), "O cupom que está sendo aplicado não é válido");
