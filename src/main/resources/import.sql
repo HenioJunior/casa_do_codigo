@@ -11,4 +11,4 @@ INSERT INTO pais(nome) VALUES ('Brasil');
 
 INSERT INTO estado(nome, pais_id) VALUES ('Rio de Janeiro', 1);
 
-INSERT INTO cupom(codigo, validade, percentual_desconto) VALUES ('jornada', '2025-01-28', 50.0);
+INSERT INTO cupom(codigo, validade, percentual_desconto) VALUES ('jornada', '2025-03-28', 50);

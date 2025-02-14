@@ -20,9 +20,8 @@ public class CompraResponse {
             this.existeCupom = true;
             percentualDesconto = compra.getCupomAplicado().getPercentualDescontoMomento();
             BigDecimal porcentagem = percentualDesconto.divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal p = porcentagem.add(new BigDecimal(1));
 
-            this.total = totalPedido.multiply(p);;
+            this.total = totalPedido.subtract(totalPedido.multiply(porcentagem)) ;
         } else {
             this.existeCupom = false;
             this.total = totalPedido;
